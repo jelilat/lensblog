@@ -3,13 +3,70 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  WagmiConfig,
+  createClient,
+  defaultChains,
+  configureChains,
+} from "wagmi";
+
+import { infuraProvider } from "wagmi/providers/infura";
+import { publicProvider } from "wagmi/providers/public";
+import { ApolloProvider } from '@apollo/client'
+
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+
+import client from './apollo'
+
+const infuraId = process.env.NEXT_PUBLIC_INFURA_ID;
+
+const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
+  infuraProvider({ infuraId }),
+  publicProvider(),
+]);
+
+// Set up client
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+    new CoinbaseWalletConnector({
+      chains,
+      options: {
+        appName: "wagmi",
+      },
+    }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        qrcode: true,
+      },
+    }),
+    new InjectedConnector({
+      chains,
+      options: {
+        name: "Injected",
+        shimDisconnect: true,
+      },
+    }),
+  ],
+  provider,
+  webSocketProvider,
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <WagmiConfig client={wagmiClient}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </WagmiConfig>
   </React.StrictMode>
 );
 
