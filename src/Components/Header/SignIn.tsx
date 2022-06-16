@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
-import { GET_CHALLENGE, AUTHENTICATION } from '../Mutations/Authenticate';
+import { AUTHENTICATION } from '../Mutations/Authenticate';
+import { GET_CHALLENGE } from '../Queries/Authenticate';
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
 import { useAccount, useSignMessage } from 'wagmi';
 import { Modal } from '../UI/Modal';

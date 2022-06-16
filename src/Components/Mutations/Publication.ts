@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const CREATE_POST_TYPED_DATA = `
+export const CREATE_POST_TYPED_DATA = gql`
   mutation($request: CreatePublicPostRequest!) { 
     createPostTypedData(request: $request) {
       id
@@ -33,7 +33,7 @@ export const CREATE_POST_TYPED_DATA = `
  }
 `
 
-export const CREATE_COMMENT_TYPED_DATA = `
+export const CREATE_COMMENT_TYPED_DATA = gql`
     mutation($request: CreatePublicCommentRequest!) { 
         createCommentTypedData(request: $request) {
             id
@@ -69,7 +69,7 @@ export const CREATE_COMMENT_TYPED_DATA = `
     }
 `
 
-export const CREATE_MIRROR_TYPED_DATA = `
+export const CREATE_MIRROR_TYPED_DATA = gql`
     mutation($request: CreateMirrorRequest!) { 
         createMirrorTypedData(request: $request) {
             id
