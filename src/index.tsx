@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Lensblog from './route';
 import reportWebVitals from './reportWebVitals';
 import {
   WagmiConfig,
@@ -9,6 +10,7 @@ import {
   defaultChains,
   configureChains,
 } from "wagmi";
+import SiteLayout from './Components/SiteLayout'
 
 import { infuraProvider } from "wagmi/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
@@ -61,13 +63,14 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={client}>
-        <App />
+        <SiteLayout />
+          <Lensblog />
       </ApolloProvider>
     </WagmiConfig>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

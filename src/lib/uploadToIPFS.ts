@@ -9,3 +9,7 @@ const client = create({
 export const uploadToIPFS = async (data: any) => {
   return await client.add(JSON.stringify(data))
 }
+
+export const uploadImageToIPFS = async (data: any) => {
+  return await client.add(data)
+}
