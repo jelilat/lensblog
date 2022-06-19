@@ -69,7 +69,7 @@ const Create = () => {
         ethereumAddress: account?.address
       }},
       onCompleted(data){
-        console.log(data)
+        // console.log(data)
         setDefaultProfile(data?.defaultProfile?.id)
       }
     })
@@ -82,7 +82,7 @@ const Create = () => {
                 createPostTypedData: CreatePostBroadcastItemResult
               }) {
                 console.log('Mutation', '#4ade80', 'Generated createPostTypedData')
-                console.log(createPostTypedData)
+                // console.log(createPostTypedData)
                 const { id, typedData } = createPostTypedData
                 const {
                     profileId,
@@ -128,7 +128,7 @@ const Create = () => {
         } else if (activeChain?.id !== chain.polygonMumbai.id) {
             console.log("Connect to Mumbai Testnet")
         } else {
-          console.log(post)
+          // console.log(post)
           setIsUploading(true)
             console.log("Uploading")
             const { path } = await uploadToIPFS({
@@ -140,6 +140,7 @@ const Create = () => {
                 image: null,
                 imageMimeType: null,
                 name: `Post by @${defaultProfile}`,
+                mainContentFocus: files[0],
                 attributes: [
                     {
                         traitType: 'string',
@@ -148,6 +149,7 @@ const Create = () => {
                     }
                 ],
                 media: null,
+                createdOn: new Date(),
                 appId: 'Lensblog'
             })
             setIsUploading(false)

@@ -3,6 +3,7 @@ import { useQuery, useLazyQuery } from '@apollo/client';
 import { EXPLORE_PUBLICATIONS } from '../Queries/Explore';
 import { Post } from '../../generated/types'
 import { TimeAgo } from '../../lib/dateConverter';
+import { Link } from 'react-router-dom';
 
 const View = () => {
     const [publications, setPublications] = useState<Post[]>([]);
@@ -19,7 +20,7 @@ const View = () => {
         fetchPolicy: 'no-cache',
         onCompleted(data){
             const publication = data?.explorePublications?.items;
-            console.log(publication)
+            // console.log(publication)
             publication.map(
                 (publicationDetails: Post) => {
                     return (
@@ -31,9 +32,7 @@ const View = () => {
     })
     const timeConverter = (publication: Post) => {
         const epochtime = new Date(publication.createdAt).getTime()
-        console.log(publication.createdAt, epochtime)
         const time = TimeAgo(epochtime)
-        console.log(epochtime, time)
         return time
     }
     
@@ -42,14 +41,16 @@ const View = () => {
             {
                 publications?.map((publication, index) => {
                     return (
-                        <div 
-                            className="mx-10 my-5 p-3 border-2 rounded-lg bg-black-500 shadow-black max-h-46 overflow-clip" 
-                            key={index}>
-                            <p className="text-sm">author - @{publication.profile.handle}</p>
-                            <p className="text-sm">Posted {timeConverter(publication)}</p><br />
-                            <div dangerouslySetInnerHTML={{ __html: publication.metadata.content }}
-                                className="text-ellipsis overflow-y-hidden" />
-                        </div>
+                        <Link to={`/post/${publication.id}`} key={index}>
+                            <div 
+                                className="mx-10 my-5 p-3 border-2 rounded-lg bg-black-500 shadow-black max-h-46 overflow-clip" 
+                                key={index}>
+                                <p className="text-sm">author - @{publication.profile.handle}</p>
+                                <p className="text-sm">Posted {timeConverter(publication)}</p><br />
+                                <div dangerouslySetInnerHTML={{ __html: publication.metadata.content }}
+                                    className="text-ellipsis overflow-y-clip max-h-36" />
+                            </div>
+                        </Link>
 
                     )
                 })

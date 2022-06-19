@@ -10,7 +10,7 @@ function SiteLayout() {
     const { data } = useQuery(GET_DEFAULT_PROFILE, {
         variables: { request: { ethereumAddress: account?.address}},
         onCompleted(data){
-            console.log(data?.defaultProfile)
+            // console.log(data?.defaultProfile)
         }
       })
     

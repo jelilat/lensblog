@@ -45,6 +45,7 @@ export default function SignIn() {
    const logout = () => {
          Cookies.remove('accessToken')
          Cookies.remove('refreshToken')
+         window.location.reload()
    }
     
     return (
@@ -69,11 +70,12 @@ export default function SignIn() {
                     </a>
                     </div>
                     <div>
-                    {!account &&
+                    {!account ?
                 <button className="text-white inline-flex items-center justify-center px-3 py-1 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-black"
                     onClick={() => {
                     setConnectModal(true)
-                }}>Connect wallet
+                }}
+                data-bs-toggle="modal" data-bs-target="">Connect wallet
                     <Modal
                     title="Connect Wallet"
                     show={connectModal}
@@ -83,8 +85,8 @@ export default function SignIn() {
                 >
                     <Connect />
                 </Modal>
-                </button>}
-                {!accessToken ?
+                </button>
+                :!accessToken ?
                     <button 
                         className="text-white inline-flex items-center justify-center px-3 py-1 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-black"
                         onClick={() => {
@@ -110,6 +112,7 @@ export default function SignIn() {
                                         res.data.authenticate.refreshToken,
                                         COOKIE_CONFIG
                                       )
+                                      window.location.reload()
                                   })
                               })
                           })

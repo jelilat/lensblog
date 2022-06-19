@@ -35,19 +35,21 @@ export default function Connect() {
   }
 
   return (
-    <div>
+    <div className="grid-rows-4 m-5">
       {connectors.map((connector) => (
+        <div>
         <button
           disabled={!connector.ready}
           key={connector.id}
           onClick={() => connect(connector)}
+          className="w-full h-12 px-6 my-2 text-gray-100 transition-colors duration-150 bg-black rounded-lg focus:shadow-outline hover:bg-gray-800"
         >
           {connector.name}
           {!connector.ready && " (unsupported)"}
           {isConnecting &&
             connector.id === pendingConnector?.id &&
             " (connecting)"}
-        </button>
+        </button></div>
       ))}
 
       {error && <div>{error.message}</div>}
